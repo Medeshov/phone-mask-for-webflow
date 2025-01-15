@@ -1,0 +1,26 @@
+<label>Phone Number</label>
+<input type="text" name="phone-number" data-mask="phone">
+<div>Code Country: <span id="cc"></span></div>
+<div>Raw Phone: <span id="rp"></span></div>
+<div>Submit Format: <span id="sf"></span></div>
+
+<script src="phone-masks-min.js"></script>
+
+<script>
+    vanillaMaskInput('[data-mask="phone"]');
+
+    document.querySelector('[data-mask="phone"]').addEventListener('input', function(e) {
+        if (e.target.lfMask.valid) {
+            const countryCode = e.target.lfMask.mask.cc;
+            const rawPhone = e.target.lfMask.raw;
+            
+            document.getElementById('rp').innerText = rawPhone;
+            document.getElementById('cc').innerText = countryCode;
+            document.getElementById('sf').innerText = `${countryCode}${rawPhone.replace(/\s/g, '')}`;
+        } else {
+            document.getElementById('rp').innerText = '';
+            document.getElementById('cc').innerText = '';
+            document.getElementById('sf').innerText = '';
+        }
+    });
+</script>

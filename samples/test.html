@@ -1,0 +1,295 @@
+<div id="test-results"></div>
+<script src="phone-masks-min.js"></script>
+<script>
+// Создаем тестовые номера на основе масок
+const specialTestNumbers = maskList.map(mask => {
+    // Создаем номер из маски, заменяя # на цифры
+    const number = mask.cm.replace(/#/g, (_, index) => (index % 9) + 1);
+    
+    // Определяем страну по коду
+    const countries = {
+        "+7": "Россия",
+        "+1": "США/Канада",
+        "+44": "Великобритания",
+        "+86": "Китай",
+        "+81": "Япония",
+        "+91": "Индия",
+        "+49": "Германия",
+        "+33": "Франция",
+        "+39": "Италия",
+        "+34": "Испания",
+        "+55": "Бразилия",
+        "+52": "Мексика",
+        "+82": "Южная Корея",
+        "+61": "Австралия",
+        "+65": "Сингапур",
+        "+971": "ОАЭ",
+        "+966": "Саудовская Аравия",
+        "+20": "Египет",
+        "+27": "ЮАР",
+        "+234": "Нигерия",
+        "+351": "Португалия",
+        "+31": "Нидерланды",
+        "+48": "Польша",
+        "+46": "Швеция",
+        "+47": "Норвегия",
+        "+45": "Дания",
+        "+358": "Финляндия",
+        "+380": "Украина",
+        "+375": "Беларусь",
+        "+370": "Литва",
+        "+371": "Латвия",
+        "+372": "Эстония",
+        "+420": "Чехия",
+        "+421": "Словакия",
+        "+36": "Венгрия",
+        "+40": "Румыния",
+        "+359": "Болгария",
+        "+30": "Греция",
+        "+90": "Турция",
+        "+972": "Израиль",
+        "+852": "Гонконг",
+        "+84": "Вьетнам",
+        "+62": "Индонезия",
+        "+63": "Филиппины",
+        "+66": "Таиланд",
+        "+60": "Малайзия",
+        "+92": "Пакистан",
+        "+98": "Иран",
+        "+964": "Ирак",
+        "+973": "Бахрейн",
+        "+974": "Катар",
+        "+965": "Кувейт",
+        "+968": "Оман",
+        "+961": "Ливан",
+        "+963": "Сирия",
+        "+962": "Иордания",
+        "+247": "Остров Вознесения",
+        "+290": "Остров Святой Елены",
+        "+683": "Ниуэ",
+        "+690": "Токелау",
+        "+500": "Фолклендские острова",
+        "+676": "Тонга",
+        "+677": "Соломоновы Острова",
+        "+678": "Вануату",
+        "+688": "Тувалу",
+        "+682": "Острова Кука",
+        "+686": "Кирибати",
+        "+95": "Мьянма",
+        "+298": "Фарерские острова",
+        "+376": "Андорра",
+        "+387": "Босния и Герцеговина",
+        "+508": "Сен-Пьер и Микелон",
+        "+597": "Суринам",
+        "+672": "Антарктида",
+        "+681": "Уоллис и Футуна",
+        "+685": "Самоа",
+        "+687": "Новая Каледония",
+        "+850": "КНДР",
+        "+230": "Маврикий",
+        "+239": "Сан-Томе и Принсипи",
+        "+245": "Гвинея-Бисау",
+        "+246": "Британская территория в Индийском океане",
+        "+263": "Зимбабве",
+        "+269": "Коморы",
+        "+297": "Аруба",
+        "+299": "Гренландия",
+        "+354": "Исландия",
+        "+373": "Молдова",
+        "+377": "Монако",
+        "+382": "Черногория",
+        "+385": "Хорватия",
+        "+386": "Словения",
+        "+389": "Северная Македония",
+        "+501": "Белиз",
+        "+507": "Панама",
+        "+592": "Гайана",
+        "+599": "Кюрасао",
+        "+670": "Восточный Тимор",
+        "+673": "Бруней",
+        "+674": "Науру",
+        "+675": "Папуа - Новая Гвинея",
+        "+676": "Тонга",
+        "+677": "Соломоновы Острова",
+        "+678": "Вануату",
+        "+679": "Фиджи",
+        "+680": "Палау",
+        "+681": "Уоллис и Футуна",
+        "+682": "Острова Кука",
+        "+683": "Ниуэ",
+        "+685": "Самоа",
+        "+686": "Кирибати",
+        "+687": "Новая Каледония",
+        "+688": "Тувалу",
+        "+689": "Французская Полинезия",
+        "+690": "Токелау",
+        "+691": "Микронезия",
+        "+692": "Маршалловы Острова",
+        "+850": "КНДР",
+        "+855": "Камбоджа",
+        "+856": "Лаос",
+        "+880": "Бангладеш",
+        "+886": "Тайвань",
+        "+960": "Мальдивы",
+        "+961": "Ливан",
+        "+962": "Иордания",
+        "+963": "Сирия",
+        "+964": "Ирак",
+        "+965": "Кувейт",
+        "+966": "Саудовская Аравия",
+        "+967": "Йемен",
+        "+968": "Оман",
+        "+970": "Палестина",
+        "+971": "ОАЭ",
+        "+972": "Израиль",
+        "+973": "Бахрейн",
+        "+974": "Катар",
+        "+975": "Бутан",
+        "+976": "Монголия",
+        "+977": "Непал",
+        "+992": "Таджикистан",
+        "+993": "Туркменистан",
+        "+994": "Азербайджан",
+        "+995": "Грузия",
+        "+996": "Кыргызстан",
+        "+998": "Узбекистан",
+        "default": "Неизвестная страна"
+    };
+
+    return {
+        city: countries[mask.cc] || `Страна (${mask.cc})`,
+        number: number
+    };
+});
+
+function validateNumber(result, test) {
+    if (!result) return { valid: false, reason: "Маска не применилась" };
+    
+    const cleanOriginal = test.number.replace(/\s/g, '');
+    const cleanSubmit = result.submitFormat.replace(/\s/g, '');
+    
+    if (cleanOriginal !== cleanSubmit) {
+        return { 
+            valid: false, 
+            reason: `Несоответствие: ожидалось ${cleanOriginal}, получено ${cleanSubmit}` 
+        };
+    }
+    
+    return { valid: true, reason: "OK" };
+}
+
+function testMask(phoneNumber) {
+    const input = document.createElement('input');
+    document.body.appendChild(input);
+    input.setAttribute('data-mask', 'phone');
+    input.value = phoneNumber;
+    
+    vanillaMaskInput('[data-mask="phone"]');
+    
+    const inputEvent = new Event('input', { bubbles: true });
+    input.dispatchEvent(inputEvent);
+    
+    const result = input.lfMask && input.lfMask.valid ? {
+        formatted: input.value,
+        countryCode: input.lfMask.mask.cc,
+        raw: input.lfMask.raw,
+        submitFormat: `${input.lfMask.mask.cc}${input.lfMask.raw.replace(/\s/g, '')}`
+    } : null;
+    
+    document.body.removeChild(input);
+    return result;
+}
+
+const results = document.getElementById('test-results');
+let html = `
+<style>
+    table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+    th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
+    th { background-color: #f2f2f2; }
+    .error { color: red; background-color: #ffe6e6; }
+    .special { background-color: #fff3e0; }
+    .valid { color: green; }
+    .invalid { color: red; }
+    .filter-controls { margin-bottom: 20px; }
+    .filter-button {
+        padding: 8px 16px;
+        margin-right: 10px;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        background: #f8f8f8;
+        border-radius: 4px;
+    }
+    .filter-button.active {
+        background: #4CAF50;
+        color: white;
+        border-color: #4CAF50;
+    }
+    .hidden { display: none; }
+</style>
+<div class="filter-controls">
+    <button class="filter-button active" data-filter="all">Все номера</button>
+    <button class="filter-button" data-filter="errors">Только ошибки</button>
+</div>
+<h2>Тест всех поддерживаемых масок</h2>
+<table>
+    <tr>
+        <th>Страна</th>
+        <th>Исходный номер</th>
+        <th>Форматированный</th>
+        <th>Код страны</th>
+        <th>Raw</th>
+        <th>Submit Format</th>
+        <th>Статус</th>
+    </tr>`;
+
+specialTestNumbers.forEach(test => {
+    const result = testMask(test.number);
+    const validation = validateNumber(result, test);
+    const hasError = !result || !validation.valid;
+    
+    if (result) {
+        html += `
+            <tr class="${validation.valid ? 'special' : 'error'}" data-status="${hasError ? 'error' : 'valid'}">
+                <td>${test.city}</td>
+                <td>${test.number}</td>
+                <td>${result.formatted}</td>
+                <td>${result.countryCode}</td>
+                <td>${result.raw}</td>
+                <td>${result.submitFormat}</td>
+                <td class="${validation.valid ? 'valid' : 'invalid'}">${validation.reason}</td>
+            </tr>
+        `;
+    } else {
+        html += `
+            <tr class="error" data-status="error">
+                <td>${test.city}</td>
+                <td>${test.number}</td>
+                <td colspan="5" class="invalid">Ошибка маски</td>
+            </tr>
+        `;
+    }
+});
+
+html += '</table>';
+results.innerHTML = html;
+
+// Добавляем обработчики для фильтрации
+document.querySelectorAll('.filter-button').forEach(button => {
+    button.addEventListener('click', function() {
+        // Обновляем активную кнопку
+        document.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        const filterType = this.dataset.filter;
+        const rows = document.querySelectorAll('table tr[data-status]');
+        
+        rows.forEach(row => {
+            if (filterType === 'all') {
+                row.classList.remove('hidden');
+            } else if (filterType === 'errors') {
+                row.classList.toggle('hidden', row.dataset.status !== 'error');
+            }
+        });
+    });
+});
+</script> 
