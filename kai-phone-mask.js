@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const countryCode = e.target.lfMask.mask.cc;
                 const rawPhone = e.target.lfMask.raw;
                 
-                console.log('Code Country:', countryCode);
+                console.log('Code of Country:', countryCode);
                 console.log('Raw Phone:', rawPhone);
                 console.log('Submit Format:', `${countryCode}${rawPhone.replace(/\s/g, '')}`);
             } else {
