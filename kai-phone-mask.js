@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Raw Phone:', rawPhone);
                 console.log('Submit Format:', `${countryCode}${rawPhone.replace(/\s/g, '')}`);
             } else {
-                console.log('Code Country:', '');
+                console.log('Code of County:', '');
                 console.log('Raw Phone:', '');
                 console.log('Submit Format:', '');
             }
