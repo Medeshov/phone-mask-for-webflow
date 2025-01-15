@@ -11,13 +11,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 const countryCode = e.target.lfMask.mask.cc;
                 const rawPhone = e.target.lfMask.raw;
                 
+                // Обновляем значение поля для отправки формы
+                e.target.value = `${countryCode}${rawPhone.replace(/\s/g, '')}`;
+                
                 console.log('Code Country:', countryCode);
                 console.log('Raw Phone:', rawPhone);
-                console.log('Submit Format:', `${countryCode}${rawPhone.replace(/\s/g, '')}`);
+                console.log('Submit Format:', e.target.value);
             } else {
                 console.log('Code Country:', '');
                 console.log('Raw Phone:', '');
                 console.log('Submit Format:', '');
+            }
+        });
+    });
+
+    // Добавляем обработчик отправки формы
+    document.querySelectorAll('form').forEach(function(form) {
+        form.addEventListener('submit', function(e) {
+            const telInput = form.querySelector('input[type="tel"]');
+            if (telInput && telInput.lfMask && !telInput.lfMask.valid) {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('Пожалуйста, введите корректный номер телефона');
             }
         });
     });
