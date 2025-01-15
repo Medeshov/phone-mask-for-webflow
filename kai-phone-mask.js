@@ -2,20 +2,23 @@ const maskList=[{cc:"+247",cm:"+247 ####",regex:"^\\+247\\d{0,4}"},{cc:"+290",cm
 
 // Автоматически инициализируем маску и добавляем обработчик blur
 document.addEventListener('DOMContentLoaded', function() {
-    vanillaMaskInput('[data-mask="phone"]');
+    // Используем нативный селектор Webflow для полей телефона
+    vanillaMaskInput('input[type="tel"]');
 
-    document.querySelector('[data-mask="phone"]').addEventListener('blur', function(e) {
-        if (e.target.lfMask.valid) {
-            const countryCode = e.target.lfMask.mask.cc;
-            const rawPhone = e.target.lfMask.raw;
-            
-            console.log('Code Country:', countryCode);
-            console.log('Raw Phone:', rawPhone);
-            console.log('Submit Format:', `${countryCode}${rawPhone.replace(/\s/g, '')}`);
-        } else {
-            console.log('Code Country:', '');
-            console.log('Raw Phone:', '');
-            console.log('Submit Format:', '');
-        }
+    document.querySelectorAll('input[type="tel"]').forEach(function(input) {
+        input.addEventListener('blur', function(e) {
+            if (e.target.lfMask.valid) {
+                const countryCode = e.target.lfMask.mask.cc;
+                const rawPhone = e.target.lfMask.raw;
+                
+                console.log('Code Country:', countryCode);
+                console.log('Raw Phone:', rawPhone);
+                console.log('Submit Format:', `${countryCode}${rawPhone.replace(/\s/g, '')}`);
+            } else {
+                console.log('Code Country:', '');
+                console.log('Raw Phone:', '');
+                console.log('Submit Format:', '');
+            }
+        });
     });
 });
